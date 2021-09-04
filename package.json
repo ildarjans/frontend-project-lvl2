@@ -25,6 +25,7 @@
   "dependencies": {
     "commander": "^8.1.0",
     "debug": "^4.3.2",
+    "js-yaml": "^4.1.0",
     "lodash": "^4.17.21"
   },
   "devDependencies": {
