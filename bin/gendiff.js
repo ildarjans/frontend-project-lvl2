@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 import { Command } from 'commander';
-import fs from 'fs';
+import parser from '../src/parser.js';
 import getDiff from '../src/getdiff.js';
 
 const program = new Command();
@@ -12,9 +12,9 @@ program
   .option('-f, --format [type]', 'output format')
   .arguments('<filepath1> <filepath2>')
   .action((filepath1, filepath2) => {
-    const targetFile = fs.readFileSync(filepath1);
-    const sourceFile = fs.readFileSync(filepath2);
-    console.log(getDiff(JSON.parse(targetFile), JSON.parse(sourceFile)));
+    const target = parser(filepath1);
+    const source = parser(filepath2);
+    console.log(getDiff(target, source));
   });
 
 program.parse(process.argv);
