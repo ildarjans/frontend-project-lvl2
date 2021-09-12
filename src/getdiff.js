@@ -1,23 +1,41 @@
 import _ from 'lodash';
+import { DiffType } from './const.js';
 
-export default (obj, source) => {
-  const allKeys = _.uniq([..._.keys(obj), ..._.keys(source)]).sort();
-  const allDiffs = allKeys.reduce((acc, k) => {
-    const hasKeyInObj = _.has(obj, k);
-    const hasKeyInSrc = _.has(source, k);
+const mapper = [
+  {
+    check: (before, after) => _.isObject(before) && _.isObject(after),
+    status: (before, after, cb) => ({ children: cb(before, after), type: DiffType.NESTED }),
+  },
+  {
+    check: (before, after) => _.isUndefined(before) && !_.isUndefined(after),
+    status: (before, after) => ({ newValue: after, type: DiffType.NEW }),
+  },
+  {
+    check: (before, after) => !_.isUndefined(before) && _.isUndefined(after),
+    status: (before) => ({ oldValue: before, type: DiffType.MISSED }),
+  },
+  {
+    check: (before, after) => !_.isEqual(before, after),
+    status: (before, after) => ({ oldValue: before, newValue: after, type: DiffType.UPDATED }),
+  },
+  {
+    check: (before, after) => _.isEqual(before, after),
+    status: (before) => ({ oldValue: before, type: DiffType.SAME }),
+  },
+];
 
-    if (hasKeyInObj && hasKeyInSrc && obj[k] === source[k]) {
-      acc.push(`  ${k}: ${obj[k]}`);
-    } else if (hasKeyInObj && hasKeyInSrc && obj[k] !== source[k]) {
-      acc.push(`- ${k}: ${obj[k]}`);
-      acc.push(`+ ${k}: ${source[k]}`);
-    } else if (hasKeyInObj && !hasKeyInSrc) {
-      acc.push(`- ${k}: ${obj[k]}`);
-    } else if (!hasKeyInObj && hasKeyInSrc) {
-      acc.push(`+ ${k}: ${source[k]}`);
-    }
+export default (target, source) => {
+  const iter = (obj1, obj2) => {
+    const uniqKeys = _.uniq([..._.keys(obj1), ..._.keys(obj2)]).sort();
+    return uniqKeys.map((key) => {
+      const before = obj1[key];
+      const after = obj2[key];
 
-    return acc;
-  }, []);
-  return `{\n ${allDiffs.join('\n ')}\n}`;
+      const { status } = mapper.find(({ check }) => check(before, after));
+
+      return { key, ...status(before, after, iter) };
+    });
+  };
+
+  return iter(target, source);
 };
