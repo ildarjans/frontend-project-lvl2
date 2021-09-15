@@ -4,15 +4,15 @@ import plain from '../src/formats/plain.js';
 describe('Check "plain" formatter return correct string', () => {
   it('Case 1. plain object.', () => {
     const diffs = [
-      { key: 'address', oldValue: 'NY', type: 'MISSED' },
-      { key: 'age', oldValue: '33', type: 'MISSED' },
-      { key: 'alcohol', newValue: 'free', type: 'NEW' },
-      { key: 'cakes', newValue: false, type: 'NEW' },
-      { key: 'human', oldValue: true, type: 'MISSED' },
-      { key: 'married', oldValue: false, type: 'MISSED' },
-      { key: 'name', oldValue: 'Ivan', type: 'MISSED' },
-      { key: 'tobacco', newValue: 1, type: 'NEW' },
-      { key: 'vegetables', newValue: 'a lot', type: 'NEW' },
+      { key: 'address', oldValue: 'NY', type: 'REMOVED' },
+      { key: 'age', oldValue: '33', type: 'REMOVED' },
+      { key: 'alcohol', newValue: 'free', type: 'ADDED' },
+      { key: 'cakes', newValue: false, type: 'ADDED' },
+      { key: 'human', oldValue: true, type: 'REMOVED' },
+      { key: 'married', oldValue: false, type: 'REMOVED' },
+      { key: 'name', oldValue: 'Ivan', type: 'REMOVED' },
+      { key: 'tobacco', newValue: 1, type: 'ADDED' },
+      { key: 'vegetables', newValue: 'a lot', type: 'ADDED' },
     ];
     const expected = '\n'
       + 'Property \'address\' was removed'
@@ -32,14 +32,14 @@ describe('Check "plain" formatter return correct string', () => {
       {
         key: 'common',
         children: [
-          { key: 'follow', newValue: false, type: 'NEW' },
-          { key: 'setting1', oldValue: 'Value 1', type: 'SAME' },
-          { key: 'setting2', oldValue: '200', type: 'MISSED' },
+          { key: 'follow', newValue: false, type: 'ADDED' },
+          { key: 'setting1', oldValue: 'Value 1', type: 'EQUAL' },
+          { key: 'setting2', oldValue: '200', type: 'REMOVED' },
           {
             key: 'setting3', oldValue: true, newValue: null, type: 'UPDATED',
           },
-          { key: 'setting4', newValue: 'blah blah', type: 'NEW' },
-          { key: 'setting5', newValue: { key5: 'value5' }, type: 'NEW' },
+          { key: 'setting4', newValue: 'blah blah', type: 'ADDED' },
+          { key: 'setting5', newValue: { key5: 'value5' }, type: 'ADDED' },
           {
             key: 'setting6',
             children: [
@@ -52,8 +52,8 @@ describe('Check "plain" formatter return correct string', () => {
                 ],
                 type: 'NESTED',
               },
-              { key: 'key', oldValue: 'value', type: 'SAME' },
-              { key: 'ops', newValue: 'vops', type: 'NEW' },
+              { key: 'key', oldValue: 'value', type: 'EQUAL' },
+              { key: 'ops', newValue: 'vops', type: 'ADDED' },
             ],
             type: 'NESTED',
           },
@@ -66,7 +66,7 @@ describe('Check "plain" formatter return correct string', () => {
           {
             key: 'baz', oldValue: 'bas', newValue: 'bars', type: 'UPDATED',
           },
-          { key: 'foo', oldValue: 'bar', type: 'SAME' },
+          { key: 'foo', oldValue: 'bar', type: 'EQUAL' },
           {
             key: 'nest',
             oldValue: { key: 'value' },
@@ -81,7 +81,7 @@ describe('Check "plain" formatter return correct string', () => {
         oldValue: {
           abc: '12345', deep: { id: '45' },
         },
-        type: 'MISSED',
+        type: 'REMOVED',
       },
       {
         key: 'group3',
@@ -89,7 +89,7 @@ describe('Check "plain" formatter return correct string', () => {
           deep: { id: { number: '45' } },
           fee: '100500',
         },
-        type: 'NEW',
+        type: 'ADDED',
       },
     ];
     const expected = '\n'

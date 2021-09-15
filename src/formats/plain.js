@@ -8,9 +8,9 @@ const getFormattedValue = (value) => {
 };
 
 const PlainAction = {
-  [DiffType.SAME]: () => [],
-  [DiffType.NEW]: (node, paths) => `Property '${paths.join('.')}' was added with value: ${getFormattedValue(node.newValue)}`,
-  [DiffType.MISSED]: (node, paths) => `Property '${paths.join('.')}' was removed`,
+  [DiffType.EQUAL]: () => [],
+  [DiffType.ADDED]: (node, paths) => `Property '${paths.join('.')}' was added with value: ${getFormattedValue(node.newValue)}`,
+  [DiffType.REMOVED]: (node, paths) => `Property '${paths.join('.')}' was removed`,
   [DiffType.UPDATED]: (node, paths) => `Property '${paths.join('.')}' was updated. From ${getFormattedValue(node.oldValue)} to ${getFormattedValue(node.newValue)}`,
   [DiffType.NESTED]: (node, paths, build) => build(node.children, paths),
 };

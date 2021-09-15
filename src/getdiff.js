@@ -8,11 +8,11 @@ const mapper = [
   },
   {
     check: (before, after) => _.isUndefined(before) && !_.isUndefined(after),
-    status: (before, after) => ({ newValue: after, type: DiffType.NEW }),
+    status: (before, after) => ({ newValue: after, type: DiffType.ADDED }),
   },
   {
     check: (before, after) => !_.isUndefined(before) && _.isUndefined(after),
-    status: (before) => ({ oldValue: before, type: DiffType.MISSED }),
+    status: (before) => ({ oldValue: before, type: DiffType.REMOVED }),
   },
   {
     check: (before, after) => !_.isEqual(before, after),
@@ -20,7 +20,7 @@ const mapper = [
   },
   {
     check: (before, after) => _.isEqual(before, after),
-    status: (before) => ({ oldValue: before, type: DiffType.SAME }),
+    status: (before) => ({ oldValue: before, type: DiffType.EQUAL }),
   },
 ];
 

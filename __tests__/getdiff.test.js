@@ -12,13 +12,13 @@ describe('Check getDiff engine returns correct results', () => {
     const target = parser(getFixturesPath('file1-json.json'));
     const source = parser(getFixturesPath('file2-json.json'));
     const expected = [
-      { key: 'follow', oldValue: false, type: 'MISSED' },
-      { key: 'host', oldValue: 'hexlet.io', type: 'SAME' },
-      { key: 'proxy', oldValue: '123.234.53.22', type: 'MISSED' },
+      { key: 'follow', oldValue: false, type: 'REMOVED' },
+      { key: 'host', oldValue: 'hexlet.io', type: 'EQUAL' },
+      { key: 'proxy', oldValue: '123.234.53.22', type: 'REMOVED' },
       {
         key: 'timeout', oldValue: 50, newValue: 20, type: 'UPDATED',
       },
-      { key: 'verbose', newValue: true, type: 'NEW' },
+      { key: 'verbose', newValue: true, type: 'ADDED' },
     ];
     expect(getDiff(target, source)).toEqual(expected);
   });
@@ -26,13 +26,13 @@ describe('Check getDiff engine returns correct results', () => {
     const target = parser(getFixturesPath('file1-yml.yml'));
     const source = parser(getFixturesPath('file2-yml.yml'));
     const expected = [
-      { key: 'follow', oldValue: false, type: 'MISSED' },
-      { key: 'host', oldValue: 'hexlet.io', type: 'SAME' },
-      { key: 'proxy', oldValue: '123.234.53.22', type: 'MISSED' },
+      { key: 'follow', oldValue: false, type: 'REMOVED' },
+      { key: 'host', oldValue: 'hexlet.io', type: 'EQUAL' },
+      { key: 'proxy', oldValue: '123.234.53.22', type: 'REMOVED' },
       {
         key: 'timeout', oldValue: 50, newValue: 20, type: 'UPDATED',
       },
-      { key: 'verbose', newValue: true, type: 'NEW' },
+      { key: 'verbose', newValue: true, type: 'ADDED' },
     ];
 
     expect(getDiff(target, source)).toEqual(expected);

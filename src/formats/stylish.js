@@ -3,16 +3,15 @@ import stringify from '../helpers/stringify.js';
 import getIndentMarker from '../helpers/getIndentMarker.js';
 
 const DiffMarker = {
-  SAME: ' ',
-  MISSED: '-',
-  NEW: '+',
-  EMPTY: '   ',
+  [DiffType.EQUAL]: ' ',
+  [DiffType.REMOVED]: '-',
+  [DiffType.ADDED]: '+',
 };
 
 const StylishAction = {
-  [DiffType.SAME]: (n) => `${n.indentMarker}${n.key}: ${stringify(n.oldValue, n.indent, n.basicIndent)}`,
-  [DiffType.MISSED]: (n) => `${n.indentMarker}${n.key}: ${stringify(n.oldValue, n.indent, n.basicIndent)}`,
-  [DiffType.NEW]: (n) => `${n.indentMarker}${n.key}: ${stringify(n.newValue, n.indent, n.basicIndent)}`,
+  [DiffType.EQUAL]: (n) => `${n.indentMarker}${n.key}: ${stringify(n.oldValue, n.indent, n.basicIndent)}`,
+  [DiffType.REMOVED]: (n) => `${n.indentMarker}${n.key}: ${stringify(n.oldValue, n.indent, n.basicIndent)}`,
+  [DiffType.ADDED]: (n) => `${n.indentMarker}${n.key}: ${stringify(n.newValue, n.indent, n.basicIndent)}`,
   [DiffType.NESTED]: (n, build) => `${n.indentMarker}${n.key}: {\n${build(n.children)}\n${n.indent}}`,
 };
 
@@ -24,7 +23,7 @@ export default (diffs, indentChar = ' ', indentCount = 4) => {
       return {
         ...node,
         indent,
-        indentMarker: getIndentMarker(indent, DiffMarker.SAME),
+        indentMarker: getIndentMarker(indent, DiffMarker[DiffType.EQUAL]),
         children: normalizer(node.children, indent.concat(basicIndent)),
       };
     }
@@ -34,15 +33,15 @@ export default (diffs, indentChar = ' ', indentCount = 4) => {
           ...node,
           indent,
           basicIndent,
-          type: DiffType.MISSED,
-          indentMarker: getIndentMarker(indent, DiffMarker.MISSED),
+          type: DiffType.REMOVED,
+          indentMarker: getIndentMarker(indent, DiffMarker[DiffType.REMOVED]),
         },
         {
           ...node,
           indent,
           basicIndent,
-          type: DiffType.NEW,
-          indentMarker: getIndentMarker(indent, DiffMarker.NEW),
+          type: DiffType.ADDED,
+          indentMarker: getIndentMarker(indent, DiffMarker[DiffType.ADDED]),
         },
       ];
     }
