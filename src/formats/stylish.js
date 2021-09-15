@@ -1,4 +1,4 @@
-import { DiffType } from '../const.js';
+import DiffType from '../diffType.js';
 import stringify from '../helpers/stringify.js';
 import getIndentMarker from '../helpers/getIndentMarker.js';
 

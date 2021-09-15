@@ -1,5 +1,4 @@
-// eslint-disable-next-line import/prefer-default-export
-export const DiffType = {
+export default {
   EQUAL: 'EQUAL',
   UPDATED: 'UPDATED',
   REMOVED: 'REMOVED',

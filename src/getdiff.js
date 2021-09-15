@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import { DiffType } from './const.js';
+import DiffType from './diffType.js';
 
 const mapper = [
   {
