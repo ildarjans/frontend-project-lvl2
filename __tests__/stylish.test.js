@@ -32,11 +32,11 @@ describe('Check "stylish" formatter return correct string', () => {
       {
         key: 'common',
         children: [
-          { key: 'follow', newValue: 'false', type: 'ADDED' },
+          { key: 'follow', newValue: false, type: 'ADDED' },
           { key: 'setting1', oldValue: 'Value 1', type: 'EQUAL' },
-          { key: 'setting2', oldValue: '200', type: 'REMOVED' },
+          { key: 'setting2', oldValue: 200, type: 'REMOVED' },
           {
-            key: 'setting3', oldValue: 'true', newValue: 'null', type: 'UPDATED',
+            key: 'setting3', oldValue: true, newValue: null, type: 'UPDATED',
           },
           { key: 'setting4', newValue: 'blah blah', type: 'ADDED' },
           { key: 'setting5', newValue: { key5: 'value5' }, type: 'ADDED' },
@@ -79,15 +79,15 @@ describe('Check "stylish" formatter return correct string', () => {
       {
         key: 'group2',
         oldValue: {
-          abc: '12345', deep: { id: '45' },
+          abc: 12345, deep: { id: 45 },
         },
         type: 'REMOVED',
       },
       {
         key: 'group3',
         newValue: {
-          deep: { id: { number: '45' } },
-          fee: '100500',
+          deep: { id: { number: 45 } },
+          fee: 100500,
         },
         type: 'ADDED',
       },
