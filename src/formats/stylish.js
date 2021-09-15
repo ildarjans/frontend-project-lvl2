@@ -18,7 +18,7 @@ const StylishAction = {
 export default (diffs, indentChar = ' ', indentCount = 4) => {
   const basicIndent = indentChar.repeat(indentCount);
 
-  const normalizer = (basicDiffs, indent) => basicDiffs.map((node) => {
+  const normalizer = (basicDiffs, indent) => basicDiffs.flatMap((node) => {
     if (node.type === DiffType.NESTED) {
       return {
         ...node,
@@ -51,7 +51,7 @@ export default (diffs, indentChar = ' ', indentCount = 4) => {
       basicIndent,
       indentMarker: getIndentMarker(indent, DiffMarker[node.type]),
     };
-  }).flat();
+  });
 
   const stringifyDiffs = (normalizedDiffs) => normalizedDiffs.map((node) => StylishAction[node.type](node, stringifyDiffs)).join('\n');
 
