@@ -3,7 +3,7 @@
 import { Command } from 'commander';
 import parser from '../src/parser.js';
 import getDiff from '../src/getdiff.js';
-import Formats from '../src/formats/formats.js';
+import Formats from '../src/formats/index.js';
 
 const program = new Command();
 
