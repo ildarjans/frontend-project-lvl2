@@ -1,13 +1,13 @@
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { describe, expect, it } from '@jest/globals';
-import getDiff from '../src/getdiff.js';
+import buildDiff from '../src/buildDiff.js';
 import parser from '../src/parser.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const getFixturesPath = (fileName) => path.join(__dirname, '..', '__fixtures__', fileName);
 
-describe('Check getDiff engine returns correct results', () => {
+describe('Check buildDiff engine returns correct results', () => {
   it('Case 1. Diff engine with JSON parser.', () => {
     const target = parser(getFixturesPath('file1-json.json'));
     const source = parser(getFixturesPath('file2-json.json'));
@@ -20,7 +20,7 @@ describe('Check getDiff engine returns correct results', () => {
       },
       { key: 'verbose', newValue: true, type: 'ADDED' },
     ];
-    expect(getDiff(target, source)).toEqual(expected);
+    expect(buildDiff(target, source)).toEqual(expected);
   });
   it('Case 2. Diff engine with Yml parser.', () => {
     const target = parser(getFixturesPath('file1-yml.yml'));
@@ -35,6 +35,6 @@ describe('Check getDiff engine returns correct results', () => {
       { key: 'verbose', newValue: true, type: 'ADDED' },
     ];
 
-    expect(getDiff(target, source)).toEqual(expected);
+    expect(buildDiff(target, source)).toEqual(expected);
   });
 });
