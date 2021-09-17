@@ -1,9 +1,7 @@
 #!/usr/bin/env node
 
 import { Command } from 'commander';
-import parser from '../src/parser.js';
-import getDiff from '../src/getdiff.js';
-import Formats from '../src/formats/index.js';
+import getDiff from '../index.js';
 
 const program = new Command();
 
@@ -14,11 +12,7 @@ program
   .arguments('<filepath1> <filepath2>')
   .action((filepath1, filepath2, options) => {
     const { format } = options;
-    const target = parser(filepath1);
-    const source = parser(filepath2);
-    console.log(Formats[format](getDiff(target, source)));
+    console.log(getDiff(filepath1, filepath2, format));
   });
 
 program.parse(process.argv);
-
-export default program;
