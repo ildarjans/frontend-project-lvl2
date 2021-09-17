@@ -19,5 +19,5 @@ export default (diffs) => {
   const iter = (basicDiffs, paths = []) => basicDiffs
     .flatMap((diff) => PlainAction[diff.type](diff, [...paths, diff.key], iter));
 
-  return `\n${iter(diffs).join('\n')}\n`;
+  return iter(diffs).join('\n');
 };

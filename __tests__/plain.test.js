@@ -14,7 +14,7 @@ describe('Check "plain" formatter return correct string', () => {
       { key: 'tobacco', newValue: 1, type: 'ADDED' },
       { key: 'vegetables', newValue: 'a lot', type: 'ADDED' },
     ];
-    const expected = '\n'
+    const expected = ''
       + 'Property \'address\' was removed'
       + '\nProperty \'age\' was removed'
       + '\nProperty \'alcohol\' was added with value: \'free\''
@@ -23,8 +23,7 @@ describe('Check "plain" formatter return correct string', () => {
       + '\nProperty \'married\' was removed'
       + '\nProperty \'name\' was removed'
       + '\nProperty \'tobacco\' was added with value: 1'
-      + '\nProperty \'vegetables\' was added with value: \'a lot\''
-      + '\n';
+      + '\nProperty \'vegetables\' was added with value: \'a lot\'';
     expect(plain(diffs)).toEqual(expected);
   });
   it('Case 2. nested object.', () => {
@@ -92,7 +91,7 @@ describe('Check "plain" formatter return correct string', () => {
         type: 'ADDED',
       },
     ];
-    const expected = '\n'
+    const expected = ''
     + 'Property \'common.follow\' was added with value: false'
     + '\nProperty \'common.setting2\' was removed'
     + '\nProperty \'common.setting3\' was updated. From true to null'
@@ -103,8 +102,7 @@ describe('Check "plain" formatter return correct string', () => {
     + '\nProperty \'group1.baz\' was updated. From \'bas\' to \'bars\''
     + '\nProperty \'group1.nest\' was updated. From [complex value] to \'str\''
     + '\nProperty \'group2\' was removed'
-    + '\nProperty \'group3\' was added with value: [complex value]'
-    + '\n';
+    + '\nProperty \'group3\' was added with value: [complex value]';
 
     expect(plain(diffs)).toEqual(expected);
   });
