@@ -26,7 +26,7 @@ const mapper = [
 
 export default (target, source) => {
   const iter = (obj1, obj2) => {
-    const uniqKeys = _.uniq([..._.keys(obj1), ..._.keys(obj2)]).sort();
+    const uniqKeys = _.orderBy(_.union(_.keys(obj1), _.keys(obj2)));
     return uniqKeys.map((key) => {
       const before = obj1[key];
       const after = obj2[key];
